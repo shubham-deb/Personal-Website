@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deba — Engineer & Trail-Chaser</title>
+<!-- ============================================================
+     EDIT GUIDE (search for "EDIT:" to find everything to swap)
+     - Name, tagline, journey years, hobby specifics, contact links
+     - Replace photo placeholders with your own images
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz@0,6..72;1,6..72&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#11201B;       /* deep pine, near-black */
+    --pine:#16332B;
+    --moss:#2E5A4B;
+    --sage:#8FA99B;
+    --paper:#F3F5F0;     /* cool green-white */
+    --mist:#E4EAE2;
+    --amber:#E8A13A;     /* summit-gold trail marker */
+    --clay:#D2553C;      /* energy, used sparingly */
+    --line:rgba(143,169,155,.32);
+
+    --serif:"Newsreader",Georgia,serif;
+    --display:"Bricolage Grotesque",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+
+    --maxw:1100px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:clamp(16px,1.1vw,18px);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+
+  /* ---------- shared atoms ---------- */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--moss);
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+  }
+  .eyebrow::before{
+    content:"";width:26px;height:1px;background:var(--amber);display:inline-block;
+  }
+  h1,h2,h3{font-family:var(--display);line-height:1.02;letter-spacing:-.02em;font-weight:800}
+  a{color:inherit}
+
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px clamp(20px,5vw,40px);
+    transition:background .3s ease, padding .3s ease;
+    mix-blend-mode:normal;
+  }
+  header.nav.scrolled{
+    background:rgba(243,245,240,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding-top:12px;padding-bottom:12px;
+  }
+  .nav .brand{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;color:var(--paper)}
+  header.nav.scrolled .brand{color:var(--ink)}
+  .nav nav{display:none;gap:28px}
+  .nav nav a{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+    text-decoration:none;color:var(--paper);opacity:.85;transition:opacity .2s, color .3s;
+  }
+  header.nav.scrolled nav a{color:var(--ink)}
+  .nav nav a:hover{opacity:1;color:var(--amber)}
+  @media (min-width:760px){.nav nav{display:flex}}
+
+  /* ============================================================
+     HERO  — terrain contours + the route begins
+     ============================================================ */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    background:var(--ink);
+    color:var(--paper);
+    display:flex;align-items:flex-end;
+    padding-bottom:clamp(48px,9vh,90px);
+    overflow:hidden;
+  }
+  .hero .terrain{
+    position:absolute;inset:0;width:100%;height:100%;
+    opacity:.9;
+  }
+  .hero .terrain path{fill:none;stroke:var(--moss);stroke-width:1.1}
+  .hero .terrain .ridge{stroke:var(--sage);opacity:.55}
+  .hero .glow{
+    position:absolute;top:-10%;right:-5%;width:55vw;height:55vw;max-width:640px;max-height:640px;
+    background:radial-gradient(circle, rgba(232,161,58,.18), transparent 62%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative;z-index:2;width:100%}
+  .hero .coords{margin-bottom:22px;color:var(--sage)}
+  .hero .coords::before{background:var(--amber)}
+  .hero h1{
+    font-size:clamp(2.7rem,9vw,6.2rem);
+    max-width:14ch;
+  }
+  .hero h1 .accent{color:var(--amber)}
+  .hero .thesis{
+    font-family:var(--serif);
+    font-size:clamp(1.05rem,2.3vw,1.5rem);
+    line-height:1.45;
+    max-width:46ch;
+    margin-top:24px;
+    color:var(--mist);
+  }
+  .hero .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+  .btn{
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+    text-decoration:none;padding:14px 22px;border-radius:2px;display:inline-flex;align-items:center;gap:.6em;
+    transition:transform .15s ease, background .2s, color .2s;
+  }
+  .btn.primary{background:var(--amber);color:var(--ink);font-weight:500}
+  .btn.primary:hover{transform:translateY(-2px)}
+  .btn.ghost{border:1px solid var(--sage);color:var(--paper)}
+  .btn.ghost:hover{background:var(--sage);color:var(--ink)}
+
+  .scrollcue{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .scrollcue .dot{width:5px;height:5px;border-radius:50%;background:var(--amber);animation:fall 1.8s ease-in-out infinite}
+  @keyframes fall{0%{transform:translateY(0);opacity:0}30%{opacity:1}100%{transform:translateY(16px);opacity:0}}
+  @media (prefers-reduced-motion:reduce){.scrollcue .dot{animation:none}}
+
+  /* draw-on animation for terrain */
+  .hero .terrain path{
+    stroke-dasharray:2600;stroke-dashoffset:2600;
+    animation:draw 2.6s ease forwards;
+  }
+  .hero .terrain path:nth-child(2){animation-delay:.15s}
+  .hero .terrain path:nth-child(3){animation-delay:.3s}
+  .hero .terrain path:nth-child(4){animation-delay:.45s}
+  .hero .terrain path:nth-child(5){animation-delay:.6s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){
+    .hero .terrain path{stroke-dashoffset:0;animation:none}
+  }
+
+  /* ============================================================
+     SECTION SCAFFOLD
+     ============================================================ */
+  section{padding:clamp(70px,12vh,130px) 0}
+  .sec-head{max-width:62ch;margin-bottom:clamp(40px,6vh,70px)}
+  .sec-head h2{font-size:clamp(2rem,5vw,3.4rem);margin-top:18px}
+  .sec-head p{margin-top:18px;color:var(--moss);font-size:clamp(1.05rem,1.6vw,1.25rem)}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* ============================================================
+     JOURNEY — the trail (waypoints down an ascending route)
+     ============================================================ */
+  .journey{background:var(--paper)}
+  .trail{position:relative;margin-top:10px}
+  .trail::before{
+    content:"";position:absolute;left:11px;top:6px;bottom:40px;width:2px;
+    background:linear-gradient(var(--amber),var(--moss));
+  }
+  .stop{position:relative;padding:0 0 clamp(40px,6vh,64px) 48px}
+  .stop:last-child{padding-bottom:0}
+  .stop .marker{
+    position:absolute;left:0;top:4px;width:24px;height:24px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--amber);
+    display:grid;place-items:center;
+  }
+  .stop .marker::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber)}
+  .stop .yr{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;color:var(--moss)}
+  .stop h3{font-size:clamp(1.4rem,3vw,2rem);margin:8px 0 4px}
+  .stop .place{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--clay)}
+  .stop p{margin-top:14px;max-width:54ch;color:var(--pine)}
+
+  @media (min-width:860px){
+    .trail{margin-left:auto;margin-right:auto;max-width:880px}
+    .trail::before{left:50%;transform:translateX(-1px)}
+    .stop{width:50%;padding-left:0;padding-right:48px;text-align:right}
+    .stop .marker{left:auto;right:-12px}
+    .stop:nth-child(even){margin-left:50%;padding-right:0;padding-left:48px;text-align:left}
+    .stop:nth-child(even) .marker{right:auto;left:-12px}
+    .stop p,.stop .yr{margin-left:auto}
+    .stop:nth-child(even) p{margin-left:0}
+  }
+
+  /* ============================================================
+     HOBBIES — three cards, each with its own trajectory motif
+     ============================================================ */
+  .hobbies{background:var(--pine);color:var(--paper)}
+  .hobbies .sec-head h2{color:var(--paper)}
+  .hobbies .sec-head p{color:var(--sage)}
+  .hobbies .eyebrow{color:var(--sage)}
+  .cards{display:grid;gap:20px;grid-template-columns:1fr}
+  @media (min-width:720px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .card{
+    position:relative;background:var(--ink);border:1px solid rgba(143,169,155,.22);
+    border-radius:4px;padding:28px 24px 26px;overflow:hidden;min-height:300px;
+    display:flex;flex-direction:column;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .card:hover{transform:translateY(-5px);border-color:var(--amber)}
+  .card .motif{position:absolute;top:0;right:0;width:140px;height:140px;opacity:.5}
+  .card .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;color:var(--amber)}
+  .card h3{font-size:1.6rem;margin:14px 0 10px;color:var(--paper)}
+  .card p{font-size:.98rem;color:var(--mist);margin-top:auto}
+  .card .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:6px}
+
+  /* ============================================================
+     CURRENTLY strip
+     ============================================================ */
+  .nowstrip{background:var(--amber);color:var(--ink)}
+  .nowstrip .wrap{display:flex;flex-wrap:wrap;gap:24px 56px;align-items:baseline;padding-top:clamp(36px,6vh,60px);padding-bottom:clamp(36px,6vh,60px)}
+  .nowstrip .lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+  .nowstrip h2{font-size:clamp(1.5rem,3.4vw,2.4rem);max-width:24ch;flex:1 1 320px}
+
+  /* ============================================================
+     CONTACT — the summit
+     ============================================================ */
+  .contact{background:var(--ink);color:var(--paper);text-align:center}
+  .contact h2{font-size:clamp(2.2rem,6vw,4rem);margin:18px 0}
+  .contact .eyebrow{justify-content:center;color:var(--sage)}
+  .contact p{max-width:48ch;margin:0 auto;color:var(--mist)}
+  .links{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px}
+
+  footer{background:var(--ink);color:var(--sage);border-top:1px solid rgba(143,169,155,.18)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;
+    padding-top:26px;padding-bottom:26px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <span class="brand">Deba<span style="color:var(--amber)">.</span></span> <!-- EDIT: brand/initial -->
+  <nav>
+    <a href="#journey">Journey</a>
+    <a href="#hobbies">Off the clock</a>
+    <a href="#contact">Connect</a>
+  </nav>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="glow"></div>
+  <svg class="terrain" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50 700 C 200 640, 380 760, 600 690 S 1050 620, 1250 700 1500 660 1500 660"/>
+    <path d="M-50 770 C 240 700, 420 820, 640 740 S 1080 690, 1300 760 1500 730 1500 730"/>
+    <path class="ridge" d="M-50 560 C 260 500, 460 600, 700 540 S 1120 470, 1340 560 1500 520 1500 520"/>
+    <path class="ridge" d="M-50 620 C 220 580, 440 670, 680 600 S 1100 540, 1320 620 1500 590 1500 590"/>
+    <path d="M-50 840 C 260 780, 480 880, 720 810 S 1120 760, 1360 830 1500 800 1500 800"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow coords">22.57°N, 88.36°E → 42.36°N, 71.06°W</span> <!-- EDIT: Kolkata → Boston coords -->
+    <h1>Building systems,<br>chasing <span class="accent">trailheads</span>.</h1>
+    <p class="thesis">
+      <!-- EDIT: your one-line story -->
+      From writing test automation in Kolkata to engineering trading systems in Boston —
+      with hiking boots, a badminton racket, and a stoppage-time obsession filling the gaps in between.
+    </p>
+    <div class="cta-row">
+      <a class="btn primary" href="#journey">Follow the route ↓</a>
+      <a class="btn ghost" href="#contact">Say hello</a>
+    </div>
+  </div>
+  <div class="scrollcue"><span class="dot"></span><span>Scroll</span></div>
+</section>
+
+<!-- ===================== JOURNEY ===================== -->
+<section class="journey" id="journey">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The route so far</span>
+      <h2>Every trail has a starting point.</h2>
+      <p>Mine began debugging software half a world away from where I build it now. Here's how the elevation changed.</p>
+    </div>
+
+    <div class="trail">
+      <!-- EDIT each stop: year, title, place, copy -->
+      <div class="stop reveal">
+        <span class="marker"></span>
+        <span class="yr">2014 – 2019</span>
+        <h3>The foundation</h3>
+        <span class="place">Kolkata, India · TCS</span>
+        <p>Nearly five years as an automation QA engineer — learning that good software is less about writing code and more about understanding how it breaks. That instinct still shapes how I build.</p>
+      </div>
+
+      <div class="stop reveal">
+        <span class="marker"></span>
+        <span class="yr">2023 – 2025</span>
+        <h3>The climb</h3>
+        <span class="place">Chicago, IL · Illinois Institute of Technology</span>
+        <p>A Master's in Computer Science, and a deliberate pivot from testing systems to designing them — distributed systems, backend architecture, and the full stack.</p>
+      </div>
+
+      <div class="stop reveal">
+        <span class="marker"></span>
+        <span class="yr">2025 — now</span>
+        <h3>The work</h3>
+        <span class="place">Greater Boston · Software Engineering</span>
+        <p>Today I build front-office trading and portfolio-management software used by investment managers around the world — gRPC services, microservices, and React on the front end. The kind of systems that have to be right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOBBIES ===================== -->
+<section class="hobbies" id="hobbies">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Off the clock</span>
+      <h2>What I do when the laptop closes.</h2>
+      <p>Three things that keep me moving — uphill, across a court, and on the edge of my seat.</p>
+    </div>
+
+    <div class="cards">
+      <!-- HIKING -->
+      <article class="card reveal">
+        <svg class="motif" viewBox="0 0 140 140" aria-hidden="true">
+          <g fill="none" stroke="var(--amber)" stroke-width="1.4">
+            <path d="M10 120 L50 50 L70 80 L95 30 L135 120 Z"/>
+            <path d="M40 120 C 60 100, 80 100, 100 120" opacity=".5"/>
+          </g>
+        </svg>
+        <span class="num">01</span>
+        <span class="tag">Elevation gain</span>
+        <h3>Hiking</h3>
+        <p>Weekends mean a trailhead and a climb. There's a quiet that only shows up a few miles in — and a view that always earns the effort. <!-- EDIT: favorite trail / region --></p>
+      </article>
+
+      <!-- BADMINTON -->
+      <article class="card reveal">
+        <svg class="motif" viewBox="0 0 140 140" aria-hidden="true">
+          <g fill="none" stroke="var(--amber)" stroke-width="1.4">
+            <path d="M5 130 C 50 130, 70 30, 130 10" stroke-dasharray="4 5"/>
+            <circle cx="130" cy="10" r="6" fill="var(--amber)" stroke="none"/>
+          </g>
+        </svg>
+        <span class="num">02</span>
+        <span class="tag">Reaction time</span>
+        <h3>Badminton</h3>
+        <p>Fast, tactical, and more brutal than it looks. It's reflexes and footwork — the perfect counterweight to a day spent sitting at a keyboard. <!-- EDIT: club / how often --></p>
+      </article>
+
+      <!-- SOCCER -->
+      <article class="card reveal">
+        <svg class="motif" viewBox="0 0 140 140" aria-hidden="true">
+          <g fill="none" stroke="var(--amber)" stroke-width="1.4">
+            <path d="M0 110 Q 70 -10, 140 110" stroke-dasharray="3 6"/>
+            <circle cx="70" cy="40" r="7" fill="none"/>
+            <path d="M63 40 h14 M70 33 v14" />
+          </g>
+        </svg>
+        <span class="num">03</span>
+        <span class="tag">Ninety minutes</span>
+        <h3>Watching soccer</h3>
+        <p>The drama, the tactics, the late winners that make a whole week worth it. Give me a tense match and I'm fully invested until the final whistle. <!-- EDIT: your team --></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CURRENTLY ===================== -->
+<section class="nowstrip">
+  <div class="wrap">
+    <span class="lbl">Currently</span>
+    <h2>Open to good conversations about backend, distributed systems, and where the next trail leads.</h2>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">The summit</span>
+    <h2>Let's connect.</h2>
+    <p>Whether it's about engineering, a hiking recommendation, or who's winning this weekend — my inbox is open.</p>
+    <div class="links">
+      <!-- EDIT all links below -->
+      <a class="btn primary" href="mailto:you@example.com">Email me</a>
+      <a class="btn ghost" href="https://linkedin.com/in/your-handle">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/your-handle">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Deba — built with intent.</span>
+    <span>42.36°N, 71.06°W</span>
+  </div>
+</footer>
+
+<script>
+  // nav background on scroll
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>40);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  // scroll reveal
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!reduce){
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+    },{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  }else{
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
