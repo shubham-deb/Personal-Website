@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #11201b;
+  --pine: #16332b;
+  --moss: #2e5a4b;
+  --sage: #8fa99b;
+  --paper: #f3f5f0;
+  --mist: #e4eae2;
+  --amber: #e8a13a;
+  --clay: #d2553c;
+  --line: rgba(143, 169, 155, 0.32);
+
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-pine: var(--pine);
+  --color-moss: var(--moss);
+  --color-sage: var(--sage);
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-amber: var(--amber);
+  --color-clay: var(--clay);
+  --color-line: var(--line);
+  --font-serif: var(--font-serif);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.1vw, 18px);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--amber);
+  display: inline-block;
+}
+
+.scrollcue .dot {
+  animation: fall 1.8s ease-in-out infinite;
+}
+@keyframes fall {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrollcue .dot {
+    animation: none;
+  }
+}
+
+.terrain path {
+  fill: none;
+  stroke: var(--moss);
+  stroke-width: 1.1;
+  stroke-dasharray: 2600;
+  stroke-dashoffset: 2600;
+  animation: draw 2.6s ease forwards;
+}
+.terrain .ridge {
+  stroke: var(--sage);
+  opacity: 0.55;
+}
+.terrain path:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.terrain path:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.terrain path:nth-child(4) {
+  animation-delay: 0.45s;
+}
+.terrain path:nth-child(5) {
+  animation-delay: 0.6s;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .terrain path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.trail::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 6px;
+  bottom: 40px;
+  width: 2px;
+  background: linear-gradient(var(--amber), var(--moss));
+}
+@media (min-width: 860px) {
+  .trail::before {
+    left: 50%;
+    transform: translateX(-1px);
+  }
+}
+
+.stop .marker {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--amber);
+  display: grid;
+  place-items: center;
+}
+.stop .marker::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+}
+@media (min-width: 860px) {
+  .stop:nth-child(odd) .marker {
+    left: auto;
+    right: -12px;
+  }
+  .stop:nth-child(even) .marker {
+    right: auto;
+    left: -12px;
+  }
+}
